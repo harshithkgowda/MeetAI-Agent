@@ -1,0 +1,7 @@
+soundfile
+pyttsx3
+google-generativeai
+speechrecognition
+selenium
+pyaudio
+python-dotenv
