@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeetAI-Agent - AI Meeting Representative</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .feature-icon { transition: all 0.3s ease; }
+        .feature-icon:hover { transform: scale(1.1); }
+        .code-block { background: #1e293b; border-radius: 8px; overflow: hidden; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-button.active { background: #3b82f6; color: white; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="text-center">
+                <div class="flex justify-center mb-6">
+                    <div class="bg-white/20 p-4 rounded-full">
+                        <i data-lucide="bot" class="w-12 h-12"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl font-bold mb-4">MeetAI-Agent</h1>
+                <p class="text-xl mb-8 opacity-90">AI Meeting Representative With Voice Cloning</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <span class="bg-white/20 px-4 py-2 rounded-full text-sm">🎯 Voice Cloning</span>
+                    <span class="bg-white/20 px-4 py-2 rounded-full text-sm">🧠 Gemini AI</span>
+                    <span class="bg-white/20 px-4 py-2 rounded-full text-sm">🎤 Speech Recognition</span>
+                    <span class="bg-white/20 px-4 py-2 rounded-full text-sm">🤖 Auto Meeting Join</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center space-x-8 py-4">
+                <button onclick="showTab('overview')" class="tab-button px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100 active">Overview</button>
+                <button onclick="showTab('features')" class="tab-button px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">Features</button>
+                <button onclick="showTab('setup')" class="tab-button px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">Setup</button>
+                <button onclick="showTab('code')" class="tab-button px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">Code</button>
+                <button onclick="showTab('demo')" class="tab-button px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">Demo</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h2 class="text-3xl font-bold mb-6">💡 The Concept</h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        An AI meeting representative that replicates your voice using ElevenLabs, speaks predefined scripts during online meetings, and uses Gemini 1.5 Flash to understand context and generate smart responses.
+                    </p>
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="font-semibold text-blue-900 mb-2">Perfect for:</h3>
+                        <ul class="text-blue-800 space-y-1">
+                            <li>• Entrepreneurs managing multiple calls</li>
+                            <li>• Students submitting presentations</li>
+                            <li>• International timezone conflicts</li>
+                            <li>• Overlapping meeting schedules</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">🎬 How It Works</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-blue-100 p-2 rounded-full">
+                                <i data-lucide="user" class="w-4 h-4 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">User Setup</h4>
+                                <p class="text-sm text-gray-600">Choose meeting type and input required info</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-green-100 p-2 rounded-full">
+                                <i data-lucide="brain" class="w-4 h-4 text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">AI Preparation</h4>
+                                <p class="text-sm text-gray-600">Gemini prepares scripted dialogue</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-purple-100 p-2 rounded-full">
+                                <i data-lucide="mic" class="w-4 h-4 text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Voice Cloning</h4>
+                                <p class="text-sm text-gray-600">ElevenLabs replicates your voice</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-orange-100 p-2 rounded-full">
+                                <i data-lucide="video" class="w-4 h-4 text-orange-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium">Meeting Join</h4>
+                                <p class="text-sm text-gray-600">Agent joins and delivers presentation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-center">🧪 Tech Stack</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="bg-blue-100 p-3 rounded-full w-fit mx-auto mb-3">
+                            <i data-lucide="brain" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">AI Brain</h3>
+                        <p class="text-sm text-gray-600">Gemini 1.5 Flash</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="bg-green-100 p-3 rounded-full w-fit mx-auto mb-3">
+                            <i data-lucide="mic" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Voice Cloning</h3>
+                        <p class="text-sm text-gray-600">ElevenLabs</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="bg-purple-100 p-3 rounded-full w-fit mx-auto mb-3">
+                            <i data-lucide="chrome" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Automation</h3>
+                        <p class="text-sm text-gray-600">Selenium</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <div class="bg-orange-100 p-3 rounded-full w-fit mx-auto mb-3">
+                            <i data-lucide="headphones" class="w-6 h-6 text-orange-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Audio</h3>
+                        <p class="text-sm text-gray-600">PyTTSx3 + VB-Cable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Tab -->
+        <div id="features" class="tab-content">
+            <h2 class="text-3xl font-bold mb-8 text-center">✨ Key Features</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-blue-100 p-3 rounded-full w-fit mb-4 feature-icon">
+                        <i data-lucide="user-check" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Voice Replication</h3>
+                    <p class="text-gray-600">Uses ElevenLabs to clone your voice with natural emotional expression</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-green-100 p-3 rounded-full w-fit mb-4 feature-icon">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Script Control</h3>
+                    <p class="text-gray-600">Agent stays on script and politely declines off-topic questions</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-purple-100 p-3 rounded-full w-fit mb-4 feature-icon">
+                        <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Auto Join</h3>
+                    <p class="text-gray-600">Automatically joins Google Meet with browser automation</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-orange-100 p-3 rounded-full w-fit mb-4 feature-icon">
+                        <i data-lucide="brain" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Context</h3>
+                    <p class="text-gray-600">Gemini AI understands meeting context and generates appropriate responses</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-red-100 p-3 rounded-full w-fit mb-4 feature-icon">
+                        <i data-lucide="mic" class="w-6 h-6 text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Speech Recognition</h3>
+                    <p class="text-gray-600">Real-time speech-to-text for interactive responses</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-indigo-100 p-3 rounded-full w-fit mb-4 feature-icon">
+                        <i data-lucide="settings" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Customizable Roles</h3>
+                    <p class="text-gray-600">Define your role and meeting purpose for contextual responses</p>
+                </div>
+            </div>
+
+            <!-- Safety Features -->
+            <div class="mt-12 bg-yellow-50 p-8 rounded-xl">
+                <h3 class="text-2xl font-bold mb-6 text-center">🔐 Safety Features</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="flex items-start space-x-3">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">Voice Consent Required</h4>
+                            <p class="text-sm text-gray-600">User must record baseline and approve final output</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i data-lucide="lock" class="w-5 h-5 text-green-600 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">Script Lock</h4>
+                            <p class="text-sm text-gray-600">Agent won't respond to questions outside of script</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i data-lucide="message-circle" class="w-5 h-5 text-green-600 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">Fallback Phrases</h4>
+                            <p class="text-sm text-gray-600">"I'll follow up" responses for unhandled inputs</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i data-lucide="user-cog" class="w-5 h-5 text-green-600 mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold">User Control</h4>
+                            <p class="text-sm text-gray-600">Review and edit everything before deployment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setup Tab -->
+        <div id="setup" class="tab-content">
+            <h2 class="text-3xl font-bold mb-8 text-center">🚀 Setup Guide</h2>
+            
+            <!-- Environment Notice -->
+            <div class="bg-orange-50 border-l-4 border-orange-400 p-6 mb-8">
+                <div class="flex">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-400 mt-1 mr-3"></i>
+                    <div>
+                        <h3 class="font-semibold text-orange-800">WebContainer Environment Notice</h3>
+                        <p class="text-orange-700 mt-1">This project requires local Python installation with system-level access for audio processing and browser automation. The current web environment has limitations.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setup Steps -->
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                        Prerequisites
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Python 3.8+ installed</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Chrome browser</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>VB-Cable for audio routing</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mr-2"></i>Gemini API key</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                        Install Dependencies
+                    </h3>
+                    <div class="code-block">
+                        <div class="bg-gray-800 px-4 py-2 text-gray-300 text-sm">Terminal</div>
+                        <pre class="p-4 text-green-400 text-sm"><code>pip install -r requirements.txt</code></pre>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
+                        Environment Setup
+                    </h3>
+                    <p class="text-gray-700 mb-3">Create a <code class="bg-gray-100 px-2 py-1 rounded">.env</code> file:</p>
+                    <div class="code-block">
+                        <div class="bg-gray-800 px-4 py-2 text-gray-300 text-sm">.env</div>
+                        <pre class="p-4 text-green-400 text-sm"><code>GEMINI_API_KEY=your_gemini_api_key_here</code></pre>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">4</span>
+                        Run the Bot
+                    </h3>
+                    <div class="code-block">
+                        <div class="bg-gray-800 px-4 py-2 text-gray-300 text-sm">Terminal</div>
+                        <pre class="p-4 text-green-400 text-sm"><code>python run_bot.py --url "https://meet.google.com/your-meeting-id" --role "Your role in the meeting"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Setup -->
+            <div class="mt-8 bg-red-50 p-6 rounded-xl">
+                <h3 class="text-xl font-semibold mb-4 text-red-800">🎧 Audio Routing Setup (Critical!)</h3>
+                <div class="space-y-3 text-red-700">
+                    <p><strong>Windows:</strong></p>
+                    <ol class="list-decimal list-inside space-y-1 ml-4">
+                        <li>Install VB-Cable from https://vb-audio.com/Cable/</li>
+                        <li>Set 'VB-Cable Input' as TTS output</li>
+                        <li>In Zoom/Meet, set mic to 'VB-Cable Output'</li>
+                        <li>Route system audio to 'Cable B' to hear the meeting</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Tab -->
+        <div id="code" class="tab-content">
+            <h2 class="text-3xl font-bold mb-8 text-center">💻 Code Structure</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- File Structure -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">📁 Project Structure</h3>
+                    <div class="code-block">
+                        <pre class="p-4 text-gray-300 text-sm"><code>MeetAI-Agent/
+├── meeting_bot.py          # Main bot logic
+├── auto_join_meet.py       # Google Meet automation
+├── gemini_chat.py          # AI response generation
+├── listen.py               # Speech recognition
+├── tts.py                  # Text-to-speech
+├── run_bot.py              # CLI runner
+├── test_components.py      # Component testing
+├── requirements.txt        # Dependencies
+├── setup_guide.md          # Setup instructions
+├── audio_routing.md        # Audio setup guide
+└── .env                    # Environment variables</code></pre>
+                    </div>
+                </div>
+
+                <!-- Key Components -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-semibold mb-3">🤖 Main Bot (meeting_bot.py)</h3>
+                        <p class="text-gray-600 text-sm">Orchestrates all components, handles meeting flow, and manages conversation history.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-semibold mb-3">🌐 Auto Join (auto_join_meet.py)</h3>
+                        <p class="text-gray-600 text-sm">Selenium-based automation to join Google Meet sessions automatically.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-semibold mb-3">🧠 AI Chat (gemini_chat.py)</h3>
+                        <p class="text-gray-600 text-sm">Integrates with Gemini 1.5 Flash for intelligent response generation.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-lg font-semibold mb-3">🎤 Speech (listen.py)</h3>
+                        <p class="text-gray-600 text-sm">Real-time speech recognition using Google Speech API.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Examples -->
+            <div class="mt-8 space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold mb-4">🔧 Usage Examples</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-medium mb-2">Project Status Meeting:</h4>
+                            <div class="code-block">
+                                <pre class="p-4 text-green-400 text-sm"><code>python run_bot.py --url "https://meet.google.com/abc-defg-hij" --role "Project Manager providing weekly status update"</code></pre>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2">Client Presentation:</h4>
+                            <div class="code-block">
+                                <pre class="p-4 text-green-400 text-sm"><code>python run_bot.py --url "https://meet.google.com/xyz-1234-abc" --role "Sales representative presenting product demo"</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Tab -->
+        <div id="demo" class="tab-content">
+            <h2 class="text-3xl font-bold mb-8 text-center">🎬 Demo & Use Cases</h2>
+            
+            <!-- Use Cases Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-blue-100 p-3 rounded-full w-fit mb-4">
+                        <i data-lucide="briefcase" class="w-6 h-6 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Business Meetings</h3>
+                    <p class="text-gray-600 text-sm">Handle client check-ins, status updates, and project presentations when you can't attend personally.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-green-100 p-3 rounded-full w-fit mb-4">
+                        <i data-lucide="graduation-cap" class="w-6 h-6 text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Academic Presentations</h3>
+                    <p class="text-gray-600 text-sm">Submit class presentations, thesis defenses, or research updates with your voice.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-purple-100 p-3 rounded-full w-fit mb-4">
+                        <i data-lucide="globe" class="w-6 h-6 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">International Calls</h3>
+                    <p class="text-gray-600 text-sm">Overcome timezone conflicts and attend meetings across different time zones.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-orange-100 p-3 rounded-full w-fit mb-4">
+                        <i data-lucide="users" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Team Updates</h3>
+                    <p class="text-gray-600 text-sm">Deliver team standup updates, progress reports, and project briefings.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-red-100 p-3 rounded-full w-fit mb-4">
+                        <i data-lucide="mic" class="w-6 h-6 text-red-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">Interviews</h3>
+                    <p class="text-gray-600 text-sm">Handle podcast interviews, media appearances, or job interviews when scheduling conflicts arise.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                    <div class="bg-indigo-100 p-3 rounded-full w-fit mb-4">
+                        <i data-lucide="file-text" class="w-6 h-6 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-3">RFP Briefings</h3>
+                    <p class="text-gray-600 text-sm">Attend proposal presentations and client briefings with prepared talking points.</p>
+                </div>
+            </div>
+
+            <!-- Demo Video Placeholder -->
+            <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <div class="bg-gray-100 p-12 rounded-lg mb-6">
+                    <i data-lucide="play-circle" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Demo Video Coming Soon</h3>
+                    <p class="text-gray-600">Watch the MeetAI-Agent in action with real meeting scenarios</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800">Voice Cloning Demo</h4>
+                        <p class="text-blue-600">See how accurately the AI replicates speech patterns</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800">Meeting Join Process</h4>
+                        <p class="text-green-600">Automated Google Meet joining and setup</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-800">AI Response Generation</h4>
+                        <p class="text-purple-600">Smart contextual responses using Gemini AI</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Competitor Comparison -->
+            <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center">🔍 How We Compare</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b">
+                                <th class="text-left p-3">Tool</th>
+                                <th class="text-left p-3">What It Does</th>
+                                <th class="text-left p-3">MeetAI-Agent Advantage</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-3 font-medium">Synthesia</td>
+                                <td class="p-3">Avatar video generation</td>
+                                <td class="p-3 text-green-600">✅ Real-time live interaction</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Otter Assistant</td>
+                                <td class="p-3">Meeting notes & transcription</td>
+                                <td class="p-3 text-green-600">✅ Actually speaks for you</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">Zoom AI Companion</td>
+                                <td class="p-3">Meeting summaries</td>
+                                <td class="p-3 text-green-600">✅ Voice-cloned representation</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-medium">ElevenLabs (standalone)</td>
+                                <td class="p-3">Voice generation</td>
+                                <td class="p-3 text-green-600">✅ Complete meeting agent integration</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold mb-2">MeetAI-Agent</h3>
+                <p class="text-gray-400">Created by Harshith K in 2025</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="twitter" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="linkedin" class="w-6 h-6"></i>
+                </a>
+            </div>
+            <p class="text-gray-400 text-sm">
+                RepBot 2.0 — For everyone who can't be in two meetings at once, but still wants to sound present, professional, and human.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
